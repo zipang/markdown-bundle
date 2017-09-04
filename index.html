@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Markdown Bundle</title>
+	<meta name="description" content="An interactive test of the markdown bundle inside Simple MDE (Markdown Editor)">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Anonymous+Pro" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous" />
+	<style>
+		.CodeMirror {
+			font-family: 'Anonymous Pro', monospace!important;
+		}
+		.editor-preview-side img {
+			max-width: 100%;
+			max-height: 300px;
+		}
+	</style>
+</head>
+<body>
+	<section id="main">
+		<textarea name="mde" id="mde" cols="80" rows="50">
+# Markdown Bundle Test sheet
+
+## Writing some maths
+
+$$
+f(x) = \int_{-\infty}^\infty
+\hat f(\xi)\,e^{2 \pi i \xi x}
+\,d\xi
+$$
+
+## Inside tables
+
+| Equation | Witty Comment |
+| :------: | ------------- |
+| $\nabla \cdot \vec{\mathbf{B}}  = 0$ | divergence of $\vec{\mathbf{B}}$ is zero |
+| $\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t}  = \vec{\mathbf{0}}$ | curl of $\vec{\mathbf{E}}$ is proportional to the rate of change of $\vec{\mathbf{B}}$ |
+
+## Looking at images
+
+![Glitch](https://i.imgur.com/9wdoVTh.gif)
+
+## Important blocks (based on bootstrap alerts)
+
+::: warning :::
+* We're
+* Going
+* Nowhere
+* Fast
+:::::::::::::::
+
+::: info :::
+* We're
+* Going
+* Nowhere
+* Fast
+::::::::::::
+
+## Watching some videos
+
+@[youtube](loFnEki2-14)
+
+@[vimeo](31608648)
+
+## Graphing some data (soon)
+```graph
+| x       | f(x)        |
+| ------- | ----------- |
+| [-1, 1] | sin(x)      |
+```
+</textarea>
+	</section>
+	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+	<script src="dist/markdown-bundle.js"></script>
+	<script>
+		var simplemde = new SimpleMDE({
+			element: document.getElementById("mde"),
+			spellChecker: false,
+			showIcons: ["code", "table"],
+			parsingConfig: {
+				allowAtxHeaderWithoutSpace: false,
+				strikethrough: false,
+				underscoresBreakWords: false
+			},
+			previewRender: markdown
+
+		})
+		simplemde.toggleSideBySide();
+
+	</script>
+</body>
+</html>
