@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Markdown Bundle</title>
+	<meta name="description" content="An interactive test of the markdown bundle inside Simple MDE (Markdown Editor)">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Anonymous+Pro" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous" />
+
+	<style>
+		.CodeMirror {
+			font-family: 'Anonymous Pro', monospace!important;
+		}
+		button {
+			border: none;
+			margin: 1px;
+		}
+		.editor-preview-side img {
+			width: 100%;
+		}
+		.icon.fa-youtube-play {
+			color: #BB0000;
+		}
+		.icon.fa-youtube-play:hover {
+			color: red;
+		}
+		a.embed {
+			display: block;
+			overflow: hidden;
+			position: relative;
+		}
+		a.embed .icon {
+			position: absolute;
+			height: auto;
+			width: auto;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	</style>
+</head>
+<body>
+	<section id="main">
+		<textarea name="mde" id="mde" cols="80" rows="50">
+# Markdown Bundle Test sheet
+
+## Writing some maths
+
+$$
+f(x) = \int_{-\infty}^\infty
+\hat f(\xi)\,e^{2 \pi i \xi x}
+\,d\xi
+$$
+
+## Inside tables
+
+| Equation | Witty Comment |
+| :------: | ------------- |
+| $\nabla \cdot \vec{\mathbf{B}}  = 0$ | divergence of $\vec{\mathbf{B}}$ is zero |
+| $\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t}  = \vec{\mathbf{0}}$ | curl of $\vec{\mathbf{E}}$ is proportional to the rate of change of $\vec{\mathbf{B}}$ |
+
+## Looking at images
+Nothing really special here but we soon will provide the upload plugin to upload images to any local or external service.
+
+![Glitch](https://i.imgur.com/9wdoVTh.gif)
+
+## Important blocks (based on bootstrap alerts)
+Surround your blocks with your choices of classes (alert, info, success)
+
+::: warning :::
+* We're
+* Going
+* Nowhere
+* *Fast*
+:::::::::::::::
+
+::: info :::
+1. Take your seat
+2. Enjoy a drink
+3. Relax
+::::::::::::
+
+> That was Nice !
+
+## Watching some videos
+(embedded or *light* launchers are availables)
+
+### On Youtube
+@[youtube](https://youtu.be/My4j3vgFxbE)
+@[youtube](https://www.youtube.com/watch?v=WfqErNnvxoo)
+@[youtube](loFnEki2-14)
+
+### Or Vimeo
+@[vimeo](77330591)
+@[vimeo](https://vimeo.com/74547305)
+
+## Graphing some data (soon)
+```graph
+| x       | f(x)        |
+| ------- | ----------- |
+| [-1, 1] | sin(x)      |
+```
+</textarea>
+	</section>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+	<script src="../dist/markdown-bundle.js"></script>
+	<script>
+
+		function render(text) {
+			console.log("Calling preview render()");
+			return markdown(text);
+		}
+		var simplemde = new SimpleMDE({
+			element: document.getElementById("mde"),
+			spellChecker: false,
+			showIcons: ["code", "table"],
+			parsingConfig: {
+				allowAtxHeaderWithoutSpace: false,
+				strikethrough: false,
+				underscoresBreakWords: false
+			},
+			previewRender: render
+
+		})
+		simplemde.toggleSideBySide();
+
+		/**
+		 * When clicking, replace youtube, vimeo external links by their embedded version
+		 * Allow for a quicker page load when embedding a lot of rich medias
+		 */
+		$("#main").on("click", "a.embed", function(evt) {
+			evt.preventDefault();
+			var $a = $(this),
+				iFrameUrl = $a.data("embedUrl");
+			$a.replaceWith(
+				$("<div>").addClass("embed-responsive embed-responsive-4by3")
+					.append(
+						$("<iframe>").attr("src", iFrameUrl)
+							.addClass("embed-responsive-item")
+							.attr("frameborder", "0")
+							.attr("allowfullscreen", true)
+					)
+			);
+		});
+	</script>
+</body>
+</html>
