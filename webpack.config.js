@@ -5,7 +5,7 @@ var path = require("path"),
 console.log("Building " + (minified ? "minified" : "full") + " version of markdown renderer");
 
 module.exports = {
-	entry: "./index.js",
+	entry: "./src/index.js",
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: "markdown-bundle" + (minified ? ".min" : "") + ".js"
