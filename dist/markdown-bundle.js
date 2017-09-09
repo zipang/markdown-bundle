@@ -1,4 +1,4 @@
-// [AIV]  markdown-bundle, build 0.1.0 - Friday, September 8th, 2017, 10:28:33 PM  
+// [AIV]  markdown-bundle, build 0.1.0 - Saturday, September 9th, 2017, 5:43:03 PM  
  /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1284,6 +1284,9 @@ module.exports.postProcess = function emphasis(state) {
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 var utils = __webpack_require__(74);
 
 function applyBundle(md, settings) {
@@ -1313,7 +1316,7 @@ function applyBundle(md, settings) {
 
 	// Container plugin
 	var containerPlugin = __webpack_require__(88),
-		containerSettings = settings.plugins.container;
+	    containerSettings = settings.plugins.container;
 
 	function renderContainer(blockName) {
 		var settings = Object.assign({}, containerSettings[blockName]);
@@ -1331,7 +1334,7 @@ function applyBundle(md, settings) {
 
 				return self.renderToken(tokens, idx, _options, env, self);
 			}
-		}
+		};
 	}
 	md.use(containerPlugin, "warning", renderContainer("warning"));
 	md.use(containerPlugin, "info", renderContainer("info"));
@@ -1339,7 +1342,6 @@ function applyBundle(md, settings) {
 }
 
 module.exports = applyBundle;
-
 
 /***/ }),
 /* 14 */
@@ -1938,17 +1940,19 @@ function hasOwnProperty(obj, prop) {
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 var settings = __webpack_require__(16),
-	md = __webpack_require__(17)(),
-	bundle = __webpack_require__(73)("./" + settings.bundle);
+    md = __webpack_require__(17)(),
+    bundle = __webpack_require__(73)("./" + settings.bundle);
 
 bundle(md, settings);
 
 // make it available as a global markdown function
-window.markdown = module.exports = function(text) {
+window.markdown = module.exports = function (text) {
 	return md.render(text);
 };
-
 
 // // Create a marked API-compatible that wraps markdown-it
 // var marked = function(text) {
@@ -1964,8 +1968,6 @@ window.markdown = module.exports = function(text) {
 // 	}
 
 // };
-
-
 
 /***/ }),
 /* 16 */
@@ -9125,11 +9127,14 @@ webpackContext.id = 73;
 
 /***/ }),
 /* 74 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 module.exports = {
 	// Tools for client side
-	addStyleSheet: function(url) {
+	addStyleSheet: function addStyleSheet(url) {
 		if (document) {
 			var link = document.createElement("link");
 			link.type = "text/css";
@@ -9138,18 +9143,16 @@ module.exports = {
 			document.getElementsByTagName("head")[0].appendChild(link);
 		}
 	},
-	existsStyleSheet: function(resourceName) {
+	existsStyleSheet: function existsStyleSheet(resourceName) {
 		if (document) {
 			var styles = document.styleSheets;
 			for (var i = 0, len = styles.length; i < len; i++) {
-				if (styles[i].href.endsWith(resourceName + ".css") || styles[i].href.endsWith(resourceName + ".min.css"))
-					return true;
+				if (styles[i].href.endsWith(resourceName + ".css") || styles[i].href.endsWith(resourceName + ".min.css")) return true;
 			}
 		}
 		return false;
 	}
-}
-
+};
 
 /***/ }),
 /* 75 */
@@ -20527,13 +20530,16 @@ module.exports = function footnote_plugin(md) {
 /* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 var SimplePluginFactory = __webpack_require__(79),
-	settings = __webpack_require__(80);
+    settings = __webpack_require__(80);
 
 if (!"startsWith" in String.prototype) {
-	String.prototype.startsWith = function(what) {
+	String.prototype.startsWith = function (what) {
 		return this.indexOf(what) === 0;
-	}
+	};
 }
 
 /**
@@ -20554,7 +20560,7 @@ function testMedia(chunk, settings) {
 		return false; // unknown media type
 	}
 
-	var mediaId = extractMediaId(mediaName, matches[2]);
+	var mediaId = (settings[mediaName].extractMediaId || extractMediaId)(mediaName, matches[2]);
 
 	if (!mediaId) {
 		console.warn("No media id found : " + chunk);
@@ -20565,18 +20571,29 @@ function testMedia(chunk, settings) {
 		token: matches[0], // mandatory : that's the part we will transform
 		media: mediaName,
 		mediaId: mediaId
-	}
+	};
 }
 
 /**
- * Extract the unique media id from various possible URLs forms
+ * Generic method to extract the unique media id from various service URLs.
+ * (Can be overwritten by a specific plugin.)
+ * This method assumes that the media id is usually the last segment of the url
+ * (which is true for youtube share urls, vimeo, ..)
  * @param {string} media
  * @param {string} url
  */
 function extractMediaId(media, url) {
-	// media id is usually the last segment of the url
-	// (true for youtube share urls, vimeo, ..)
-	var mediaId = url.split("/").pop();
+
+	var mediaId = url,
+	    parts = url.split("/");
+
+	if (parts.length > 1) {
+		// there was at least one slash !
+		// take the last url part that is not empty (case of a trailing slash)
+		do {
+			mediaId = parts.pop();
+		} while (!mediaId);
+	}
 
 	if (mediaId.startsWith("watch?v=")) {
 		// special case for youtube full urls :
@@ -20598,8 +20615,8 @@ function render(match, settings) {
 
 	// choose the rendering function
 	var renderingMode = settings.mode,
-		mediaSettings = settings[match.media],
-		renderFn = mediaSettings[renderingMode];
+	    mediaSettings = settings[match.media],
+	    renderFn = mediaSettings[renderingMode];
 
 	if (!renderFn) {
 		renderFn = mediaSettings.embed; // this one is mandatory and should exist for any media
@@ -20613,19 +20630,19 @@ function render(match, settings) {
 		}
 
 		return media;
-	} catch(err) {
+	} catch (err) {
 		return err; // yep. helpfull for debugging
 	}
 }
 
-module.exports = SimplePluginFactory.create(
-	"medias", testMedia, render, settings
-);
-
+module.exports = SimplePluginFactory.create("medias", testMedia, render, settings);
 
 /***/ }),
 /* 79 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /*!
  * SimplePluginFactory (for markdown-it)
@@ -20649,7 +20666,7 @@ function createPlugin(name, test, replacer, options) {
 	var plugin = new SimplePlugin(name, test, replacer, options);
 
 	// return a callable function passed to markdown-it.use()
-	return function(md, options) {
+	return function (md, options) {
 		Object.assign(plugin.options, options);
 		plugin.init(md);
 	};
@@ -20670,13 +20687,13 @@ function SimplePlugin(name, test, replacer, options) {
 SimplePlugin.prototype.init = function (md) {
 	md.inline.ruler.push(this.id, this.parse.bind(this));
 	md.renderer.rules[this.id] = this.render.bind(this);
-}
+};
 
 SimplePlugin.prototype.parse = function (state, silent) {
 
 	// test the current chunk for match
 	var candidate = state.src.slice(state.pos),
-		match = this.test(candidate, this.options);
+	    match = this.test(candidate, this.options);
 
 	if (!match) return false; // continue
 
@@ -20694,11 +20711,11 @@ SimplePlugin.prototype.parse = function (state, silent) {
 	token.meta = match;
 
 	return true;
-}
+};
 
 SimplePlugin.prototype.render = function (tokens, id, mdSettings) {
 	return this.replacer(tokens[id].meta, this.options);
-}
+};
 
 /**
  * Expose the SimplePlugin factory method
@@ -20707,10 +20724,12 @@ module.exports = {
 	create: createPlugin
 };
 
-
 /***/ }),
 /* 80 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 module.exports = {
 	// A regular expression that extracts the media name [1] and media url [2]
@@ -20719,31 +20738,48 @@ module.exports = {
 	mode: "embed", // possible values at the moment : embed|launcher
 	youtube: {
 		ratio: "4by3",
-		launcher: (videoId)=>`
-		<a class="youtube embed" rel="youtube" href="https://youtu.be/${videoId}" data-embed-url="https://www.youtube.com/embed/${videoId}?autoplay=1&amp;rel=0">
-			<img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" class="img-fluid" alt="Video">
-			<i class="icon fa fa-youtube-play fa-5x"></i>
-		</a>`,
-		embed: (videoId)=>`
-		<iframe class="youtube embed-responsive-item" frameborder="0" allowfullscreen
-			src="https://www.youtube.com/embed/${videoId}?rel=0"></iframe>`
+		launcher: function launcher(videoId) {
+			return "\n\t\t<a class=\"youtube embed\" rel=\"youtube\" href=\"https://youtu.be/" + videoId + "\" data-embed-url=\"https://www.youtube.com/embed/" + videoId + "?autoplay=1&amp;rel=0\">\n\t\t\t<img src=\"https://img.youtube.com/vi/" + videoId + "/hqdefault.jpg\" class=\"img-fluid\" alt=\"Video\">\n\t\t\t<i class=\"icon fa fa-youtube-play fa-5x\"></i>\n\t\t</a>";
+		},
+		embed: function embed(videoId) {
+			return "\n\t\t<iframe class=\"youtube embed-responsive-item\" frameborder=\"0\" allowfullscreen\n\t\t\tsrc=\"https://www.youtube.com/embed/" + videoId + "?rel=0\"></iframe>";
+		}
 	},
 	vimeo: {
 		ratio: "16by9",
-		launcher: (videoId)=>`
-		<a class="vimeo embed" rel="vimeo" href="https://vimeo.com/${videoId}" data-embed-url="https://player.vimeo.com/video/${videoId}?autoplay=1">
-			<img src="https://placehold.it/640x360" data-video-id="${videoId}" class="img-fluid" alt="Video">
-			<i class="icon fa fa-vimeo-square fa-5x"></i>
-		</a>`,
-		embed: (videoId)=>`
-		<iframe class="embed-responsive-item" frameborder="0" allowfullscreen
-			src="https://player.vimeo.com/video/${videoId}"></iframe>`
+		launcher: function launcher(videoId) {
+			return "\n\t\t<a class=\"vimeo embed\" rel=\"vimeo\" href=\"https://vimeo.com/" + videoId + "\" data-embed-url=\"https://player.vimeo.com/video/" + videoId + "?autoplay=1\">\n\t\t\t<img src=\"https://placehold.it/640x360\" data-video-id=\"" + videoId + "\" class=\"img-fluid\" alt=\"Video\">\n\t\t\t<i class=\"icon fa fa-vimeo-square fa-5x\"></i>\n\t\t</a>";
+		},
+		embed: function embed(videoId) {
+			return "\n\t\t<iframe class=\"embed-responsive-item\" frameborder=\"0\" allowfullscreen\n\t\t\tsrc=\"https://player.vimeo.com/video/" + videoId + "\"></iframe>";
+		}
+	},
+	whyd: {
+		ratio: "4by3",
+		extractMediaId: function extractMediaId(media, playlistUrl) {
+			return playlistUrl;
+		},
+		embed: function embed(playlistUrl) {
+			return "\n\t\t<iframe  class=\"embed-responsive-item\" frameborder=\"0\" allowfullscreen\n\t\t\tsrc=\"" + playlistUrl + "?format=embedV2&embedW=480\"></iframe>";
+		}
+
+	},
+	pdf: {
+		ratio: "210by297",
+		extractMediaId: function extractMediaId(media, pdfDocUrl) {
+			return pdfDocUrl;
+		},
+		notSupportedMessage: "Your browser isn't supporting embedded pdf files. You can download the file here : ",
+		embed: function embed(pdfDocUrl, settings) {
+			return "\n\t\t<object class=\"embed-responsive-item\" data=\"" + pdfDocUrl + "\" type=\"application/pdf\" title=\"\">\n\t\t\t<p>" + settings.notSupportedMessage + "<a href=\"" + pdfDocUrl + "\">here</a>.</p>\n\t\t</object>";
+		}
+
 	},
 	// wraps the provided iframe with bootstrap responsive classes
-	embedResponsive: (content, settings)=>`
-	<div class="embed-responsive embed-responsive-${settings.ratio}">${content}</div>`
-}
-
+	embedResponsive: function embedResponsive(content, settings) {
+		return "\n\t<div class=\"embed-responsive embed-responsive-" + settings.ratio + "\">" + content + "</div>";
+	}
+};
 
 /***/ }),
 /* 81 */
