@@ -25,7 +25,9 @@ function testMedia(chunk, settings) {
 		return false; // unknown media type
 	}
 
-	var mediaId = extractMediaId(mediaName, matches[2]);
+	var mediaId = (settings[mediaName].extractMediaId || extractMediaId)(
+		mediaName, matches[2]
+	);
 
 	if (!mediaId) {
 		console.warn("No media id found : " + chunk);
@@ -40,14 +42,21 @@ function testMedia(chunk, settings) {
 }
 
 /**
- * Extract the unique media id from various possible URLs forms
+ * Generic method to extract the unique media id from various service URLs.
+ * (Can be overwritten by a specific plugin.)
+ * This method assumes that the media id is usually the last segment of the url
+ * (which is true for youtube share urls, vimeo, ..)
  * @param {string} media
  * @param {string} url
  */
 function extractMediaId(media, url) {
-	// media id is usually the last segment of the url
-	// (true for youtube share urls, vimeo, ..)
-	var mediaId = url.split("/").pop();
+
+	var mediaId = url, parts = url.split("/");
+
+	if (parts.length > 1) { // there was at least one slash !
+		// take the last url part that is not empty (case of a trailing slash)
+		do mediaId = parts.pop(); while (!mediaId);
+	}
 
 	if (mediaId.startsWith("watch?v=")) {
 		// special case for youtube full urls :

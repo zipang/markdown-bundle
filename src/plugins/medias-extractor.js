@@ -25,6 +25,24 @@ module.exports = {
 		<iframe class="embed-responsive-item" frameborder="0" allowfullscreen
 			src="https://player.vimeo.com/video/${videoId}"></iframe>`
 	},
+	whyd: {
+		ratio: "4by3",
+		extractMediaId: (media, playlistUrl)=>playlistUrl,
+		embed: (playlistUrl)=>`
+		<iframe  class="embed-responsive-item" frameborder="0" allowfullscreen
+			src="${playlistUrl}?format=embedV2&embedW=480"></iframe>`
+
+	},
+	pdf: {
+		ratio: "210by297",
+		extractMediaId: (media, pdfDocUrl)=>pdfDocUrl,
+		notSupportedMessage: "Your browser isn't supporting embedded pdf files. You can download the file here : ",
+		embed: (pdfDocUrl, settings)=>`
+		<object class="embed-responsive-item" data="${pdfDocUrl}" type="application/pdf" title="">
+			<p>${settings.notSupportedMessage}<a href="${pdfDocUrl}">here</a>.</p>
+		</object>`
+
+	},
 	// wraps the provided iframe with bootstrap responsive classes
 	embedResponsive: (content, settings)=>`
 	<div class="embed-responsive embed-responsive-${settings.ratio}">${content}</div>`
