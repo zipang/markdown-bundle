@@ -7,7 +7,7 @@ console.log("Building " + (minified ? "minified" : "full") + " version of markdo
 module.exports = {
 	entry: "./src/index.js",
 	output: {
-		path: path.resolve(__dirname, 'dist'),
+		path: path.resolve(__dirname, "dist"),
 		filename: "markdown-bundle" + (minified ? ".min" : "") + ".js"
 	},
 	externals: 'fs', // in order to make mermaid work
@@ -27,5 +27,20 @@ module.exports = {
 				}
 			}
 		})
-	]
+	],
+	module: {
+		rules: [{
+			test: /\.js$/,
+			include: path.resolve(__dirname, "src"),
+			exclude: /(node_modules|bower_components)/,
+			use: {
+				loader: 'babel-loader',
+				options: {
+					presets: ['env'],
+					cacheDirectory: true,
+					plugins: [require('babel-plugin-transform-object-rest-spread')]
+				}
+			}
+		}]
+	}
 };
