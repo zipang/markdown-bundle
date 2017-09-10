@@ -1,4 +1,4 @@
-// [AIV]  markdown-bundle, build 0.1.0 - Saturday, September 9th, 2017, 5:43:03 PM  
+// [AIV]  markdown-bundle, build 0.1.0 - Sunday, September 10th, 2017, 6:46:24 PM  
  /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1294,7 +1294,9 @@ function applyBundle(md, settings) {
 	md.options.breaks = true; // breaks at newlines
 
 	md.use(__webpack_require__(75));
-	utils.addStyleSheet("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css");
+	if (!utils.existsStyleSheet("katex")) {
+		utils.addStyleSheet("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css");
+	}
 
 	md.use(__webpack_require__(77));
 
@@ -1318,7 +1320,7 @@ function applyBundle(md, settings) {
 	var containerPlugin = __webpack_require__(88),
 	    containerSettings = settings.plugins.container;
 
-	function renderContainer(blockName) {
+	function renderBlock(blockName) {
 		var settings = Object.assign({}, containerSettings[blockName]);
 		return {
 			render: function renderDefault(tokens, idx, _options, env, self) {
@@ -1336,9 +1338,9 @@ function applyBundle(md, settings) {
 			}
 		};
 	}
-	md.use(containerPlugin, "warning", renderContainer("warning"));
-	md.use(containerPlugin, "info", renderContainer("info"));
-	md.use(containerPlugin, "cite", renderContainer("cite"));
+	md.use(containerPlugin, "warning", renderBlock("warning"));
+	md.use(containerPlugin, "info", renderBlock("info"));
+	md.use(containerPlugin, "cite", renderBlock("cite"));
 }
 
 module.exports = applyBundle;
@@ -9145,9 +9147,13 @@ module.exports = {
 	},
 	existsStyleSheet: function existsStyleSheet(resourceName) {
 		if (document) {
-			var styles = document.styleSheets;
+			var href,
+			    styles = document.styleSheets;
 			for (var i = 0, len = styles.length; i < len; i++) {
-				if (styles[i].href.endsWith(resourceName + ".css") || styles[i].href.endsWith(resourceName + ".min.css")) return true;
+				href = styles[i].href; // not all style tags have external reference : some are inline !
+				if (href && href.indexOf(resourceName) !== -1) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -20760,7 +20766,7 @@ module.exports = {
 			return playlistUrl;
 		},
 		embed: function embed(playlistUrl) {
-			return "\n\t\t<iframe  class=\"embed-responsive-item\" frameborder=\"0\" allowfullscreen\n\t\t\tsrc=\"" + playlistUrl + "?format=embedV2&embedW=480\"></iframe>";
+			return "\n\t\t<iframe class=\"embed-responsive-item\" frameborder=\"0\" allowfullscreen\n\t\t\tsrc=\"" + playlistUrl + "?format=embedV2&embedW=480\"></iframe>";
 		}
 
 	},
