@@ -5,7 +5,9 @@ function applyBundle(md, settings) {
 	md.options.breaks = true; // breaks at newlines
 
 	md.use(require("markdown-it-katex"));
-	utils.addStyleSheet("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css");
+	if (!utils.existsStyleSheet("katex")) {
+		utils.addStyleSheet("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css");
+	}
 
 	md.use(require("markdown-it-footnote"));
 
@@ -29,7 +31,7 @@ function applyBundle(md, settings) {
 	var containerPlugin = require("markdown-it-container"),
 		containerSettings = settings.plugins.container;
 
-	function renderContainer(blockName) {
+	function renderBlock(blockName) {
 		var settings = Object.assign({}, containerSettings[blockName]);
 		return {
 			render: function renderDefault(tokens, idx, _options, env, self) {
@@ -47,9 +49,9 @@ function applyBundle(md, settings) {
 			}
 		}
 	}
-	md.use(containerPlugin, "warning", renderContainer("warning"));
-	md.use(containerPlugin, "info", renderContainer("info"));
-	md.use(containerPlugin, "cite", renderContainer("cite"));
+	md.use(containerPlugin, "warning", renderBlock("warning"));
+	md.use(containerPlugin, "info", renderBlock("info"));
+	md.use(containerPlugin, "cite", renderBlock("cite"));
 }
 
 module.exports = applyBundle;
