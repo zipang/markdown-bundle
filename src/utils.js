@@ -11,10 +11,12 @@ module.exports = {
 	},
 	existsStyleSheet: function(resourceName) {
 		if (document) {
-			var styles = document.styleSheets;
+			var href, styles = document.styleSheets;
 			for (var i = 0, len = styles.length; i < len; i++) {
-				if (styles[i].href.endsWith(resourceName + ".css") || styles[i].href.endsWith(resourceName + ".min.css"))
+				href = styles[i].href; // not all style tags have external reference : some are inline !
+				if (href && href.indexOf(resourceName) !== -1) {
 					return true;
+				}
 			}
 		}
 		return false;
