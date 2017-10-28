@@ -51,7 +51,9 @@ function applyBundle(md, settings) {
 	}
 	md.use(containerPlugin, "warning", renderBlock("warning"));
 	md.use(containerPlugin, "info", renderBlock("info"));
-	md.use(containerPlugin, "cite", renderBlock("cite"));
+	md.use(containerPlugin, "success", renderBlock("success"));
+	md.use(containerPlugin, "exemple", renderBlock("success"));
+	md.use(containerPlugin, "danger", renderBlock("danger"));
 }
 
 module.exports = applyBundle;

@@ -1,7 +1,7 @@
 {
 	"name": "markdown-bundle",
-	"version": "0.1.0",
-	"description": "A markdown renderer that bundles all the extensions available with markdown-it and adds the necessary stylesheets to the page to render them.",
+	"version": "0.1.1",
+	"description": "A markdown renderer that bundles lots of extensions with markdown-it and adds the necessary stylesheets to the page to render them.",
 	"keywords": [
 		"markdown",
 		"markdown-it",
@@ -24,6 +24,7 @@
 		"watch": "webpack --watch"
 	},
 	"dependencies": {
+		"@ragg/inline-attachment": "^5.0.0-alpha.3",
 		"markdown-it": "^8.4.0",
 		"markdown-it-container": "^2.0.0",
 		"markdown-it-fontawesome": "^0.2.0",

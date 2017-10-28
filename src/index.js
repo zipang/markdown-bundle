@@ -5,7 +5,7 @@ var settings = require("./settings.json"),
 bundle(md, settings);
 
 // make it available as a global markdown function
-window.markdown = module.exports = function(text) {
+global.markdown = module.exports = function(text) {
 	return md.render(text);
 };
 

@@ -44,6 +44,13 @@
 		.embed-responsive-210by297 {
 			padding-bottom: 141.42%;
 		}
+		#fileUpload {
+			position: absolute;
+			top: 0; left: -200px;
+			width: 1em;
+			height: 1em;
+			opacity: 0;
+		}
 	</style>
 </head>
 <body>
@@ -94,24 +101,7 @@ Surround your blocks with your choices of classes (alert, info, success)
 
 > The videos continue to play when you are editing like in HackMD !
 
-### On Youtube
-@[youtube](https://youtu.be/My4j3vgFxbE)
-@[youtube](https://www.youtube.com/watch?v=WfqErNnvxoo)
-@[youtube](loFnEki2-14)
 
-### Or Vimeo
-@[vimeo](77330591)
-@[vimeo](https://vimeo.com/74547305)
-
-### Or even watch my whole playlist on Openwhyd !
-@[whyd](https://openwhyd.org/u/520122f77e91c862b2af9625/playlist/3)
-
-## Embed other medias
-Well, embedding are not restricted to videos.
-We have a long list of medias comming soon like :
-
-### PDF documents
-@[pdf](https://www.planetebook.com/ebooks/Frankenstein.pdf)
 
 ## Graphing some data (soon)
 ```graph
@@ -121,9 +111,33 @@ We have a long list of medias comming soon like :
 ```
 </textarea>
 	</section>
+
+	<section><code><pre>
+		### On Youtube
+		@[youtube](https://youtu.be/My4j3vgFxbE)
+		@[youtube](https://www.youtube.com/watch?v=WfqErNnvxoo)
+		@[youtube](loFnEki2-14)
+
+		### Or Vimeo
+		@[vimeo](77330591)
+		@[vimeo](https://vimeo.com/74547305)
+
+		### Or even watch my whole playlist on Openwhyd !
+		@[whyd](https://openwhyd.org/u/520122f77e91c862b2af9625/playlist/3)
+
+		## Embed other medias
+		Well, embedding are not restricted to videos.
+		We have a long list of medias comming soon like :
+
+		### PDF documents
+		@[pdf](https://www.planetebook.com/ebooks/Frankenstein.pdf)
+	</pre></code>
+	</section>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
 	<!-- <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.js"></script> -->
-	<script src="demo/simplemde.min.js"></script>
+	<script src="demo/simplemde.js"></script>
+	<script src="demo/inline-attachments/inline-attachment.js"></script>
+	<!-- <script src="demo/inline-attachments/codemirror.inline-attachment.js"></script> -->
 	<script src="dist/markdown-bundle.js"></script>
 	<script>
 
@@ -131,19 +145,86 @@ We have a long list of medias comming soon like :
 			console.log("Calling preview render()");
 			return markdown(text);
 		}
+
+		// Create an hidden upload file input
+		var $fileUpload = $("<input>").attr("id", "fileUpload")
+			.attr("type", "file").attr("multiple", true).attr("accept", "image/*")
+			.appendTo(document.body);
+
+		function uploadAsset(editor) {
+			$fileUpload.trigger("click");
+		}
+		$fileUpload.on("change", function (e) {
+			var files = e.target.files || e.dataTransfer.files;
+			e.dataTransfer = {};
+			e.dataTransfer.files = files;
+			inlineAttach.onDrop(e)
+		});
+
+		var _UPLOAD = {
+			name: "upload",
+			action: uploadAsset,
+			className: "fa fa-cloud-upload",
+			title: "Upload image or document",
+		};
+
 		var simplemde = new SimpleMDE({
 			element: document.getElementById("mde"),
 			spellChecker: false,
-			showIcons: ["code", "table"],
+			autoDownloadFontAwesome: false,
+			toolbar: [
+				"heading", "bold", "italic", "quote", "|",
+				"unordered-list", "ordered-list", "table", "code", "|",
+				"link", "image", _UPLOAD, "|",
+				"side-by-side", "guide"],
 			parsingConfig: {
 				allowAtxHeaderWithoutSpace: false,
 				strikethrough: false,
 				underscoresBreakWords: false
 			},
+			inlineAttachment: {
+				uploadUrl: '/demo/upload/index.php'
+			},
 			previewRender: render
 
 		})
+
+		// -------------------------------------------------------- //
+
+		SimpleMDE.prototype.inlineAttach = function(options) {
+
+			var cm = this.codemirror,
+				editor = new CMWrapper(cm),
+				inlineAttach = new inlineAttachment(options, editor),
+				el = cm.getWrapperElement();
+
+			el.addEventListener('paste', function(e) {
+				inlineAttach.onPaste(e);
+			}, false);
+
+			cm.on('drop', function(data, e) {
+				if (inlineAttach.onDrop(e)) {
+					e.stopPropagation();
+					e.preventDefault();
+					return true;
+				} else {
+					return false;
+				}
+			});
+
+			return inlineAttach;
+		}
+
+		// var inlineAttach = inlineAttachment.editors.codemirror4.attach(
+		// 	simplemde.codemirror, {
+		// 		uploadUrl: '/demo/upload/index.php'
+		// 	}
+		// );
+		var inlineAttach = simplemde.inlineAttach({
+			uploadUrl: '/demo/upload/index.php'
+		})
 		simplemde.toggleSideBySide();
+
 
 		/**
 		 * When clicking, replace youtube, vimeo external links by their embedded version

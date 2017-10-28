@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@ragg/inline-attachment@^5.0.0-alpha.3":
+  version "5.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/@ragg/inline-attachment/-/inline-attachment-5.0.0-alpha.3.tgz#045b89ae5b008c8b4008dc48a692751e7e0c2aff"
+
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"

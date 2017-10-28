@@ -1,7 +1,7 @@
 module.exports = {
 	// Tools for client side
 	addStyleSheet: function(url) {
-		if (document) {
+		if (global.document) {
 			var link = document.createElement("link");
 			link.type = "text/css";
 			link.rel = "stylesheet";
@@ -10,7 +10,7 @@ module.exports = {
 		}
 	},
 	existsStyleSheet: function(resourceName) {
-		if (document) {
+		if (global.document) {
 			var href, styles = document.styleSheets;
 			for (var i = 0, len = styles.length; i < len; i++) {
 				href = styles[i].href; // not all style tags have external reference : some are inline !
