@@ -38,7 +38,10 @@ function plugin(options) {
 
 			// convert other metadatas that are markdown
 			keys.forEach(function(key) {
-				data[key] = markdown(data[key], options);
+				if (key in data) {
+					console.log(`converting markdown data for key: ${key}`);
+					data[key] = markdown(data[key], options);
+				}
 			});
 
 			// replace markdown extension by 'html'
