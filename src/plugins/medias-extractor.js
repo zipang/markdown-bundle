@@ -33,6 +33,14 @@ module.exports = {
 			src="${playlistUrl}?format=embedV2&embedW=480"></iframe>`
 
 	},
+	geogebra: {
+		ratio: "16by9",
+		embed: (diagramId)=>`
+		<iframe class="embed-responsive-item" frameborder="0" allowfullscreen scrolling="no"
+			src="https://www.geogebra.org/material/iframe/id/${diagramId}/sdz/true" >
+			</iframe>`
+
+	},
 	pdf: {
 		ratio: "210by297",
 		extractMediaId: (media, pdfDocUrl)=>pdfDocUrl,
