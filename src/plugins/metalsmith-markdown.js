@@ -31,22 +31,20 @@ function plugin(options) {
 
 			var data = files[path];
 
-			console.log(`converting markdown data for file: ${path}`);
 			// convert main content
 			var str = markdown(data.contents.toString(), options);
 			data.contents = new Buffer(str);
 
-			// convert other metadatas that are markdown
-			keys.forEach(function(key) {
-				if (key in data) {
-					console.log(`converting markdown data for key: ${key}`);
-					data[key] = markdown(data[key], options);
-				}
-			});
+			// in depth scan object and convert every given keys from markdown
+			scan(data, keys, options);
 
-			// replace markdown extension by 'html'
+			// Determine new file path as an HTML resource :
+			// * path/to/index.md > path/to/index.html
+			// * path/to/name.md > path/to/name/index.html
 			delete files[path];
-			files[path.replace(/\.md$|\.markdown$/, "/index.html")] = data;
+			var html_path = path.replace("index.md", "index.html").replace(/\.md$|\.markdown$/, "/index.html");
+			files[html_path] = data;
+			console.log(`Markdown conversion done for file: ${path} > ${html_path}`);
 		});
 	};
 }
@@ -57,7 +55,29 @@ function plugin(options) {
  * @param {String} file
  * @return {Boolean}
  */
-
 function isMarkdown(file){
 	return /\.md|\.markdown/.test(extname(file));
+}
+
+/**
+ * Scan an object for a list of keys to transform
+ * @param {Object} data object to scan
+ * @param {Array}  keys name of the keys that contain markdown text
+ * @param {Object} options markdown options
+ */
+function scan(data, keys, options) {
+
+	if (!keys || keys.length === 0) return;
+
+	Object.keys(data).forEach(function(key) {
+
+		if (typeof data[key] === "object") { // scan deeper (array or object)
+			scan(data[key], keys, options);
+
+		} else if (typeof data[key] === "string") {
+			if (keys.indexOf(key) !== -1) {
+				data[key] = markdown(data[key], options);
+			}
+		}
+	})
 }
