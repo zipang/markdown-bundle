@@ -1,6 +1,6 @@
 {
 	"name": "markdown-bundle",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "A markdown renderer that bundles lots of extensions with markdown-it and adds the necessary stylesheets to the page to render them.",
 	"keywords": [
 		"markdown",
