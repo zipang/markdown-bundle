@@ -4,6 +4,16 @@ var dirname  = require('path').dirname;
 var extname  = require('path').extname;
 var markdown = require('../index.js');
 
+const _EXCLUDED_KEYS = {
+	contents: true,
+	collection: true,
+	stats: true,
+	previous: true,
+	next: true,
+	parents: true,
+	parent: true
+}
+
 /**
  * Expose `plugin`.
  */
@@ -67,11 +77,12 @@ function isMarkdown(file){
  */
 function scan(data, keys, options) {
 
-	if (!keys || keys.length === 0) return;
+	if (!data || !keys || keys.length === 0) return;
 
 	Object.keys(data).forEach(function(key) {
 
-		if (typeof data[key] === "object") { // scan deeper (array or object)
+		if (typeof data[key] === "object" && !(key in _EXCLUDED_KEYS)) { // scan deeper (array or object)
+			console.log("Markdown scanning : " + key);
 			scan(data[key], keys, options);
 
 		} else if (typeof data[key] === "string") {
