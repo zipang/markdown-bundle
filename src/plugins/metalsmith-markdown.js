@@ -70,14 +70,14 @@ function isMarkdown(file){
 }
 
 /**
- * Scan an object for a list of keys to transform
+ * Deeply scan an object for a list of keys to transform
  * @param {Object} data object to scan
  * @param {Array}  keys name of the keys that contain markdown text
  * @param {Object} options markdown options
  */
 function scan(data, keys, options) {
 
-	if (!data || !keys || keys.length === 0) return;
+	if (!data || !keys || keys.length === 0 || data._scanned) return;
 
 	Object.keys(data).forEach(function(key) {
 
@@ -91,4 +91,7 @@ function scan(data, keys, options) {
 			}
 		}
 	})
+
+	// Allow to exit circular references between objects
+	data._scanned = true;
 }
