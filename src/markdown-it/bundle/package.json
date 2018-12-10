@@ -1,0 +1,41 @@
+{
+	"name": "markdown-bundle",
+	"version": "0.2.0",
+	"description": "A markdown renderer that bundles lots of extensions with markdown-it and adds the necessary stylesheets to the page to render them.",
+	"keywords": [
+		"markdown",
+		"markdown-it",
+		"editor",
+		"simplemde",
+		"katex"
+	],
+	"homepage": "https://github.com/zipang/markdown-bundle",
+	"main": "./src/index.js",
+	"license": "MIT",
+	"author": {
+		"name": "zipang",
+		"url": "https://github.com/zipang"
+	},
+	"bugs": {
+		"url": "https://github.com/zipang/markdown-bundle/issues"
+	},
+	"scripts": {
+		"build": "",
+		"watch": ""
+	},
+	"dependencies": {
+		"@ragg/inline-attachment": "^5.0.2",
+		"markdown-it": "^8.4.0",
+		"markdown-it-container": "^2.0.0",
+		"markdown-it-fontawesome": "^0.3.0",
+		"markdown-it-footnote": "^3.0.1",
+		"markdown-it-katex": "http://github.com/zipang/markdown-it-katex#v2.3.0",
+		"markdown-it-regexp": "^0.4.0"
+	},
+	"devDependencies": {
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/zipang/markdown-bundle"
+	}
+}

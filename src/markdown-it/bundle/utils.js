@@ -1,5 +1,9 @@
+// Tools for client side
 module.exports = {
-	// Tools for client side
+	/**
+	 * Add the stylesheet to the HEAD of the document
+	 * @param  {String} url
+	 */
 	addStyleSheet: function(url) {
 		if (global.document) {
 			var link = document.createElement("link");
@@ -9,6 +13,11 @@ module.exports = {
 			document.getElementsByTagName("head")[0].appendChild(link);
 		}
 	},
+	/**
+	 * Test if a resource of the same name is already loaded in the page
+	 * @param  {String} resourceName
+	 * @return {Boolean}
+	 */
 	existsStyleSheet: function(resourceName) {
 		if (global.document) {
 			var href, styles = document.styleSheets;

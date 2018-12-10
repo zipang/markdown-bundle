@@ -1,47 +1,29 @@
 {
 	"name": "markdown-bundle",
-	"version": "0.2.0",
-	"description": "A markdown renderer that bundles lots of extensions with markdown-it and adds the necessary stylesheets to the page to render them.",
+	"version": "1.0.0",
+	"description": "A mono repo that contains multiple packages related to markdown rendering with a lot of extensions (like KaTeX and rich embeddable content)",
 	"keywords": [
 		"markdown",
 		"markdown-it",
+		"remark",
 		"editor",
 		"simplemde",
 		"katex"
 	],
 	"homepage": "https://github.com/zipang/markdown-bundle",
-	"main": "./src/index.js",
 	"license": "MIT",
-	"author": {
-		"name": "zipang",
-		"url": "https://github.com/zipang"
-	},
+	"author": "zipang (https://github.com/zipang)",
 	"bugs": {
 		"url": "https://github.com/zipang/markdown-bundle/issues"
 	},
 	"scripts": {
-		"build": "webpack && webpack -p",
-		"watch": "webpack --watch"
+		"build": "bit build",
+		"test": "bit test"
 	},
 	"dependencies": {
-		"@ragg/inline-attachment": "^5.0.2",
-		"markdown-it": "^8.4.0",
-		"markdown-it-container": "^2.0.0",
-		"markdown-it-fontawesome": "^0.3.0",
-		"markdown-it-footnote": "^3.0.1",
-		"markdown-it-katex": "http://github.com/zipang/markdown-it-katex#v2.3.0",
-		"markdown-it-regexp": "^0.4.0"
+		"katex": "latest"
 	},
-	"devDependencies": {
-		"babel-core": "^6.26.3",
-		"babel-loader": "^8.0.2",
-		"babel-preset-env": "^1.7.0",
-		"latest": "^0.2.0",
-		"webpack": "^4.17.2",
-		"webpack-auto-inject-version": "^1.0.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/zipang/markdown-bundle"
-	}
+	"devDependencies": {},
+	"repository": "https://github.com/zipang/markdown-bundle",
+	"private": true
 }
