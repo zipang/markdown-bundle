@@ -1,0 +1,22 @@
+{
+  "name": "remark-bundle",
+  "version": "0.1.0",
+  "description": "No configuration, battery-loaded markdown converter based on remark",
+  "main": "index.js",
+  "repository": "git@github.com:zipang/markdown-bundle.git",
+  "author": "zipang (Christophe Desguez)",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "rehype-katex": "^1.2.0",
+    "rehype-stringify": "^5.0.0",
+    "remark-breaks": "^1.0.2",
+    "remark-math": "^1.0.5",
+    "remark-parse": "^6.0.3",
+    "remark-rehype": "^4.0.0",
+    "unified": "^7.0.2"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1"
+  }
+}
