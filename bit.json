@@ -1,8 +1,11 @@
 {
-	"env": {},
-	"dependencies": {},
-	"componentsDefaultDirectory": "src/{namespace}/{name}",
-	"packageManager": "yarn",
-	"useWorkspaces": true,
-	"manageWorkspaces": true
+    "env": {
+        "tester": "bit.envs/testers/mocha@0.0.14"
+    },
+    "dependencies": {
+        "zipang.bit-boilerplate/tests/describe": "0.1.0"
+    },
+    "componentsDefaultDirectory": "src/{namespace}/{name}",
+    "packageManager": "yarn",
+    "useWorkspaces": true
 }

@@ -1,29 +1,36 @@
 {
-	"name": "markdown-bundle",
-	"version": "1.0.0",
-	"description": "A mono repo that contains multiple packages related to markdown rendering with a lot of extensions (like KaTeX and rich embeddable content)",
-	"keywords": [
-		"markdown",
-		"markdown-it",
-		"remark",
-		"editor",
-		"simplemde",
-		"katex"
-	],
-	"homepage": "https://github.com/zipang/markdown-bundle",
-	"license": "MIT",
-	"author": "zipang (https://github.com/zipang)",
-	"bugs": {
-		"url": "https://github.com/zipang/markdown-bundle/issues"
-	},
-	"scripts": {
-		"build": "bit build",
-		"test": "bit test"
-	},
-	"dependencies": {
-		"katex": "latest"
-	},
-	"devDependencies": {},
-	"repository": "https://github.com/zipang/markdown-bundle",
-	"private": true
+  "name": "markdown-bundle",
+  "version": "1.0.0",
+  "description": "A mono repo that contains multiple packages related to markdown rendering with a lot of extensions (like KaTeX and rich embeddable content)",
+  "keywords": [
+    "markdown",
+    "markdown-it",
+    "remark",
+    "editor",
+    "simplemde",
+    "katex"
+  ],
+  "homepage": "https://github.com/zipang/markdown-bundle",
+  "license": "MIT",
+  "author": "zipang (https://github.com/zipang)",
+  "bugs": {
+    "url": "https://github.com/zipang/markdown-bundle/issues"
+  },
+  "scripts": {
+    "build": "bit build",
+    "test": "bit test"
+  },
+  "dependencies": {
+    "katex": "latest",
+    "@bit/zipang.bit-boilerplate.tests.describe": "file:./src/tests/describe"
+  },
+  "devDependencies": {},
+  "repository": "https://github.com/zipang/markdown-bundle",
+  "private": true,
+  "workspaces": [
+    "src/remark/bundle",
+    "src/tests/describe",
+    "components/.dependencies/*/*/*/*",
+    "src/*/*"
+  ]
 }
