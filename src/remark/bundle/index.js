@@ -1,21 +1,65 @@
 const unified = require('unified');
-const parse = require('remark-parse');
-const math = require('remark-math');
+const parseMarkdown = require('remark-parse');
 const breaks = require('remark-breaks');
-const remark2rehype = require('remark-rehype');
-const stringify = require('rehype-stringify');
+const parseMath = require('remark-math');
+const transformToHtml = require('remark-rehype');
 const katex = require('rehype-katex');
+const stringify = require('rehype-stringify');
+
+const DEFAULTS = {
+	// Markdown parser options
+	// @see https://github.com/remarkjs/remark/tree/master/packages/remark-parse#processoruseparse-options
+	markdown: {
+		gfm: true, // Github Flavored Markdown
+		commonmark: false,
+		footnotes: true,
+	},
+	// Inline math processor options
+	math: {
+		inlineMathDouble: true,
+	},
+	// MDAST to HAST (HTML) transformer options
+	// @see https://github.com/syntax-tree/mdast-util-to-hast#tohastnode-options
+	html: {
+		allowDangerousHTML: false,
+	},
+	// Rehype Katex renderer options
+	// @see https://github.com/Rokt33r/remark-math#rehype-katex-and-remark-html-katex
+	katex: {
+		strict: false,
+		throwOnError: false,
+		errorColor: 'red',
+		inlineMathDoubleDisplay: false,
+		macros: {},
+	}
+}
 
 //require('katex/dist/katex.css')
 //require('github-markdown-css')
 
-const processor = unified()
-	.use(parse)
-	.use(math)
-	.use(breaks)
-	.use(remark2rehype)
-	.use(katex)
-	.use(stringify);
 
-// Expose renderer
-module.exports = (markdown) => processor.processSync(markdown).toString();
+// Expose a factory
+const markdownBundle = (opts) => {
+
+	const options = Object.assign({}, DEFAULTS, opts);
+
+	function process(markdown) {
+		return unified()
+			// Parses markdown to mdast syntax tree
+			.use(parseMarkdown, options.markdown)
+			// Marks $inline$ and $$block$$ contents as math
+			.use(parseMath, options.math)
+			.use(breaks)
+			.use(transformToHtml, options.html)
+			.use(katex, options.katex)
+			.use(stringify)
+			.processSync(markdown);
+	}
+
+	return {
+		render: (markdown) => process(markdown).toString(),
+		//renderReact: (markdown) => process(markdown).toReact(),
+	}
+}
+
+module.exports = markdownBundle;

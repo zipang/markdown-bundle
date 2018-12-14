@@ -1,0 +1,10 @@
+{
+  "name": "@bit/zipang.bit-boilerplate.tests.describe",
+  "version": "0.1.0",
+  "homepage": "https://bitsrc.io/zipang/bit-boilerplate/tests/describe",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {},
+  "license": "MIT"
+}
