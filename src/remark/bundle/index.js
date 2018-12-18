@@ -22,6 +22,7 @@ const DEFAULTS = {
 	// @see https://github.com/syntax-tree/mdast-util-to-hast#tohastnode-options
 	html: {
 		allowDangerousHTML: false,
+		handlers: {}
 	},
 	// Rehype Katex renderer options
 	// @see https://github.com/Rokt33r/remark-math#rehype-katex-and-remark-html-katex
