@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "katex": "latest",
+    "@bit/zipang.bit-boilerplate.tests.env": "file:./src/tests/env",
     "@bit/zipang.bit-boilerplate.tests.describe": "file:./src/tests/describe"
   },
   "devDependencies": {},
@@ -29,8 +30,9 @@
   "private": true,
   "workspaces": [
     "src/remark/bundle",
-    "src/tests/describe",
     "components/.dependencies/*/*/*/*",
-    "src/*/*"
+    "src/*/*",
+    "src/tests/env",
+    "src/tests/describe"
   ]
 }

@@ -1,11 +1,17 @@
 {
     "env": {
-        "tester": "bit.envs/testers/mocha@0.0.14"
+        "compiler": "bit.envs/compilers/babel@0.0.20",
+        "tester": "zipang.bit-boilerplate/tests/env@0.1.0"
     },
     "dependencies": {
+        "zipang.bit-boilerplate/tests/env": "0.1.0",
         "zipang.bit-boilerplate/tests/describe": "0.1.0"
     },
     "componentsDefaultDirectory": "src/{namespace}/{name}",
     "packageManager": "yarn",
-    "useWorkspaces": true
+    "useWorkspaces": true,
+    "dist": {
+        "entry": "src",
+        "target": "dist"
+    }
 }

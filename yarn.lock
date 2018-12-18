@@ -2,6 +2,9 @@
 # yarn lockfile v1
 
 
+"@bit/zipang.bit-boilerplate.tests.env@file:./src/tests/env":
+  version "0.1.0"
+
 "@ragg/inline-attachment@^5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@ragg/inline-attachment/-/inline-attachment-5.0.2.tgz#b7d0f2f68854283620d9f966e71b393172ba714a"
