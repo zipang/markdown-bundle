@@ -4,6 +4,7 @@ const breaks = require('remark-breaks');
 const parseMath = require('remark-math');
 const transformToHtml = require('remark-rehype');
 const katex = require('rehype-katex');
+const handlers = require('./plugins/');
 const stringify = require('rehype-stringify');
 
 const DEFAULTS = {
@@ -22,7 +23,7 @@ const DEFAULTS = {
 	// @see https://github.com/syntax-tree/mdast-util-to-hast#tohastnode-options
 	html: {
 		allowDangerousHTML: false,
-		handlers: {}
+		handlers: handlers
 	},
 	// Rehype Katex renderer options
 	// @see https://github.com/Rokt33r/remark-math#rehype-katex-and-remark-html-katex

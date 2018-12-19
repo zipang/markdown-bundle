@@ -17,6 +17,16 @@
                 "relativePath": "src/remark/bundle/index.spec.js",
                 "test": true,
                 "name": "index.spec.js"
+            },
+            {
+                "relativePath": "src/remark/bundle/plugins/handleImages.js",
+                "test": false,
+                "name": "handleImages.js"
+            },
+            {
+                "relativePath": "src/remark/bundle/plugins/index.js",
+                "test": false,
+                "name": "index.js"
             }
         ],
         "mainFile": "src/remark/bundle/index.js",
