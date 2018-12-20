@@ -21,9 +21,8 @@ describe(`Markdown bundle test suite`, () => {
 	});
 
 	it('renders embedded Youtube URLs', (expect) => {
-		const embedded = render(`![xkcd#1190](https://youtu.be/Ryyk69WE9i8)`);
-		console.log(`Embedding youtube urls : ${embedded}`);
-		expect(embedded).toContain('iframe');
+		expect(render(`![xkcd#1190](https://youtu.be/Ryyk69WE9i8)`)).toContain('iframe', 'youtube');
+		expect(render(`![xkcd#1190](https://www.youtube.com/watch?v=_TUTJ0klnKk&t=105s)`)).toContain('iframe', 'youtube');
 	});
 
 	it('renders embedded Vimeo URLs', (expect) => {

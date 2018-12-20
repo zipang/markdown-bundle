@@ -14,8 +14,8 @@ const embedded = [
 		 */
 		createNode: (url) => {
 
-			const videoId = (url.searchParams && url.searchParams.v)
-				? url.searchParams.v
+			const videoId = url.searchParams.has('v')
+				? url.searchParams.get('v')
 				: url.pathname.split('/').pop();
 
 			return {
