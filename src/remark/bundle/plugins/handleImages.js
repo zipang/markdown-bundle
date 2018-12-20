@@ -29,6 +29,31 @@ const embedded = [
 				}
 			}
 		}
+	},
+	{
+		name: 'vimeo',
+		regex: /(vimeo.com)$/i,
+		/**
+		 * @param {URL} url of the video to embed
+		 * @return <iframe class="vimeo embed-responsive-item"
+		 *     frameborder="0" allowfullscreen
+		 *     src="https://player.vimeo.com/video/${videoId}"></iframe>`
+		 */
+		createNode: (url) => {
+
+			const videoId = url.pathname.split('/').pop();
+
+			return {
+				type: 'element',
+				tagName: 'iframe',
+				properties: {
+					src: `https://player.vimeo.com/video/${videoId}`,
+					frameborder: '0',
+					className: ['vimeo', 'embed-responsive-item'],
+					allowfullscreen: true
+				}
+			}
+		}
 	}
 ];
 
@@ -70,7 +95,9 @@ function handleImageNode(h, node) {
 				href: url.toString(),
 				title: node.alt || ''
 			}
-			return h(node, 'a', props, [url.toString()]);
+			return h(node, 'a', props, [
+				{ type: 'text', value: url.toString() }
+			]);
 		}
 	}
 }

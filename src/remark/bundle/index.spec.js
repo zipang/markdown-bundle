@@ -20,9 +20,15 @@ describe(`Markdown bundle test suite`, () => {
 		expect(render(`![xkcd#395](https://imgs.xkcd.com/comics/morning.png)`)).toContain('img');
 	});
 
-	it('renders embedded media URLs', (expect) => {
+	it('renders embedded Youtube URLs', (expect) => {
 		const embedded = render(`![xkcd#1190](https://youtu.be/Ryyk69WE9i8)`);
 		console.log(`Embedding youtube urls : ${embedded}`);
+		expect(embedded).toContain('iframe');
+	});
+
+	it('renders embedded Vimeo URLs', (expect) => {
+		const embedded = render(`![live#miroiterie](https://vimeo.com/40806453)`);
+		console.log(`Embedding vimeo urls : ${embedded}`);
 		expect(embedded).toContain('iframe');
 	});
 
