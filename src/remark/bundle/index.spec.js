@@ -1,5 +1,5 @@
 const { render } = require('./index')();
-const { it, describe } = require('../../tests/describe');
+const { it, describe } = require('@bit/zipang.bit-boilerplate.tests.describe');
 
 describe(`Markdown bundle test suite`, () => {
 
