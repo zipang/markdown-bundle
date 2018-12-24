@@ -54,6 +54,31 @@ const embedded = [
 				}
 			}
 		}
+	},
+	{
+		name: 'geogebra',
+		regex: /(geogebra.org)$/i,
+		/**
+		 * @param {URL} url of the diagram to embed
+		 * @return <iframe class="geogebra embed-responsive-item"
+		 *     frameborder="0" allowfullscreen scrolling="no"
+		 *     src="https://www.geogebra.org/material/iframe/id/${diagramId}/sdz/true"></iframe>`
+		 */
+		createNode: (url) => {
+
+			const diagramId = url.pathname.split('/').pop();
+
+			return {
+				type: 'element',
+				tagName: 'iframe',
+				properties: {
+					src: `https://www.geogebra.org/material/iframe/id/${diagramId}/sdz/true`,
+					frameborder: '0',
+					className: ['geogebra', 'embed-responsive-item'],
+					allowfullscreen: true
+				}
+			}
+		}
 	}
 ];
 

@@ -21,11 +21,18 @@ describe(`Markdown bundle test suite`, () => {
 	});
 
 	it('renders embedded Youtube URLs', (expect) => {
+		expect.assertions(2);
 		expect(render(`![xkcd#1190](https://youtu.be/Ryyk69WE9i8)`)).toContain('iframe', 'youtube');
 		expect(render(`![xkcd#1190](https://www.youtube.com/watch?v=_TUTJ0klnKk&t=105s)`)).toContain('iframe', 'youtube');
 	});
 
 	it('renders embedded Vimeo URLs', (expect) => {
+		const embedded = render(`![live#miroiterie](https://vimeo.com/40806453)`);
+		console.log(`Embedding vimeo urls : ${embedded}`);
+		expect(embedded).toContain('iframe');
+	});
+
+	it('renders embedded Geogebra diagrams', (expect) => {
 		const embedded = render(`![live#miroiterie](https://vimeo.com/40806453)`);
 		console.log(`Embedding vimeo urls : ${embedded}`);
 		expect(embedded).toContain('iframe');
