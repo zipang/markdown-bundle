@@ -34,25 +34,7 @@
         "origin": "AUTHORED",
         "mainDistFile": "dist/src/remark/bundle/index.js"
     },
-    "zipang.bit-boilerplate/tests/env@0.1.0": {
-        "files": [
-            {
-                "name": "README.md",
-                "relativePath": "README.md",
-                "test": false
-            },
-            {
-                "name": "index.js",
-                "relativePath": "index.js",
-                "test": false
-            }
-        ],
-        "mainFile": "index.js",
-        "rootDir": "src/tests/env",
-        "origin": "IMPORTED",
-        "originallySharedDir": "src/tests/env"
-    },
-    "zipang.bit-boilerplate/tests/describe@0.1.0": {
+    "zipang.bit-boilerplate/tests/describe@0.1.1": {
         "files": [
             {
                 "name": "index.js",
@@ -69,6 +51,24 @@
         "rootDir": "src/tests/describe",
         "origin": "IMPORTED",
         "originallySharedDir": "src/tests/describe"
+    },
+    "zipang.bit-boilerplate/tests/env@0.1.1": {
+        "files": [
+            {
+                "name": "README.md",
+                "relativePath": "README.md",
+                "test": false
+            },
+            {
+                "name": "index.js",
+                "relativePath": "index.js",
+                "test": false
+            }
+        ],
+        "mainFile": "index.js",
+        "rootDir": "src/tests/env",
+        "origin": "IMPORTED",
+        "originallySharedDir": "src/tests/env"
     },
     "version": "13.0.4"
 }

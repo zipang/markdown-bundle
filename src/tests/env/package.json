@@ -1,6 +1,6 @@
 {
   "name": "@bit/zipang.bit-boilerplate.tests.env",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://bitsrc.io/zipang/bit-boilerplate/tests/env",
   "main": "index.js",
   "dependencies": {},
