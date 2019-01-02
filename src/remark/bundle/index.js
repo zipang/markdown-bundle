@@ -4,6 +4,7 @@ const breaks = require('remark-breaks');
 const parseMath = require('remark-math');
 const transformToHtml = require('remark-rehype');
 const katex = require('rehype-katex');
+const addIdsToTitles = require('rehype-slug');
 const handlers = require('./plugins/');
 const stringify = require('rehype-stringify');
 
@@ -54,6 +55,7 @@ const markdownBundle = (opts) => {
 			.use(breaks)
 			.use(transformToHtml, options.html)
 			.use(katex, options.katex)
+			.use(addIdsToTitles)
 			.use(stringify)
 			.processSync(markdown);
 	}

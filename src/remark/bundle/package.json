@@ -9,6 +9,7 @@
   "private": false,
   "dependencies": {
     "rehype-katex": "^1.2.0",
+    "rehype-slug": "^2.0.2",
     "rehype-stringify": "^5.0.0",
     "remark-breaks": "^1.0.2",
     "remark-math": "^1.0.5",
