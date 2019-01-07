@@ -70,5 +70,22 @@
         "origin": "IMPORTED",
         "originallySharedDir": "src/tests/env"
     },
+    "remark/hast-to-petitdom": {
+        "files": [
+            {
+                "relativePath": "src/remark/hast-to-petitdom/index.js",
+                "test": false,
+                "name": "index.js"
+            },
+            {
+                "relativePath": "src/remark/hast-to-petitdom/index.spec.js",
+                "test": true,
+                "name": "index.spec.js"
+            }
+        ],
+        "mainFile": "src/remark/hast-to-petitdom/index.js",
+        "trackDir": "src/remark/hast-to-petitdom",
+        "origin": "AUTHORED"
+    },
     "version": "13.0.4"
 }
