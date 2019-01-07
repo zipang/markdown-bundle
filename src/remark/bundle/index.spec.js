@@ -1,7 +1,7 @@
-const { render } = require('./index')();
+const render = require('./index')();
 const { it, describe } = require('@bit/zipang.bit-boilerplate.tests.describe');
 
-describe(`Markdown bundle test suite`, () => {
+describe(`Markdown bundle test suite : render()`, () => {
 
 	it('converts markdown', (expect) => {
 		expect(render(`# Title`)).toBe('<h1>Title</h1>');
@@ -39,3 +39,5 @@ describe(`Markdown bundle test suite`, () => {
 	});
 
 });
+
+

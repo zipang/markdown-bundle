@@ -1,0 +1,15 @@
+{
+  "name": "hast-to-petitdom",
+  "version": "1.0.0",
+  "description": "Convert a hast dom to petit-dom",
+  "main": "index.js",
+  "author": "zipang (Christophe Desguez)",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "petit-dom": "^0.2.2"
+  },
+  "devDependencies": {
+    "hastscript": "^5.0.0"
+  }
+}

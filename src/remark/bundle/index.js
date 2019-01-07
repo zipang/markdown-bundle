@@ -1,12 +1,18 @@
 const unified = require('unified');
+// PARSER
 const parseMarkdown = require('remark-parse');
+// TRANSFORMERS
 const breaks = require('remark-breaks');
 const parseMath = require('remark-math');
 const transformToHtml = require('remark-rehype');
 const katex = require('rehype-katex');
-const addIdsToTitles = require('rehype-slug');
+// const addIdsToTitles = require('rehype-slug');
 const handlers = require('./plugins/');
-const stringify = require('rehype-stringify');
+// COMPILERS
+const toHtml = require('../hast-to-petitdom/').plugin;
+
+// PETI DOM
+const { mount, patch } = require('petit-dom');
 
 const DEFAULTS = {
 	// Markdown parser options
@@ -34,6 +40,10 @@ const DEFAULTS = {
 		errorColor: 'red',
 		inlineMathDoubleDisplay: false,
 		macros: {},
+	},
+	// Vdom transformation options
+	vdom: {
+
 	}
 }
 
@@ -41,29 +51,40 @@ const DEFAULTS = {
 //require('github-markdown-css')
 
 
-// Expose a factory
-const markdownBundle = (opts) => {
+/**
+ * Markdown Bundle Factory method
+ * @param  {Object} opts
+ */
+function markdownBundle(opts) {
 
 	const options = Object.assign({}, DEFAULTS, opts);
 
-	function process(markdown) {
-		return unified()
-			// Parses markdown to mdast syntax tree
-			.use(parseMarkdown, options.markdown)
-			// Marks $inline$ and $$block$$ contents as math
-			.use(parseMath, options.math)
-			.use(breaks)
-			.use(transformToHtml, options.html)
-			.use(katex, options.katex)
-			.use(addIdsToTitles)
-			.use(stringify)
-			.processSync(markdown);
+	const processor = unified()
+		// Parses markdown to mdast syntax tree
+		.use(parseMarkdown, options.markdown)
+		// Marks $inline$ and $$block$$ contents as math
+		.use(parseMath, options.math)
+		.use(breaks)
+		.use(transformToHtml, options.html)
+		.use(katex, options.katex)
+		.use(toHtml)
+		// .use(addIdsToTitles);
+
+	function render(markdown, dest) {
+		const petitdom = processor.processSync(markdown).contents;
+		const node = mount(petitdom);
+
+		if (!dest) {
+			return node.outerHTML;
+		} else if (dest.rendered) {
+			dest.rendered = patch(node, dest.rendered, dest);
+		} else {
+			dest.innerHTML = node.outerHTML;
+			dest.rendered  = node;
+		}
 	}
 
-	return {
-		render: (markdown) => process(markdown).toString(),
-		//renderReact: (markdown) => process(markdown).toReact(),
-	}
+	return render;
 }
 
 module.exports = markdownBundle;

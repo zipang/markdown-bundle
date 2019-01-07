@@ -8,9 +8,8 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "petit-dom": "^0.2.2",
     "rehype-katex": "^1.2.0",
-    "rehype-slug": "^2.0.2",
-    "rehype-stringify": "^5.0.0",
     "remark-breaks": "^1.0.2",
     "remark-math": "^1.0.5",
     "remark-parse": "^6.0.3",
