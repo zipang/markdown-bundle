@@ -2,18 +2,18 @@ const h = require('hastscript');
 const toPreact = require('./index');
 const { it, describe } = require('@bit/zipang.bit-boilerplate.tests.describe');
 
-it("Convert HAST to petit-dom", () => {
+it("Convert HAST to preact virtual dom", () => {
 
 	describe("It converts a simple text node", (expect) => {
 		expect.assertions(2);
 		const textNode = toPreact(h('p', "Hello World"));
 		console.dir(textNode);
-		expect(textNode.type).toBe('p');
-		expect(textNode.content[0]._text).toBe("Hello World");
+		expect(textNode.nodeName).toBe('p');
+		expect(textNode.children[0]).toBe("Hello World");
 	});
 
 
-	describe("It converts a simple text node", (expect) => {
+	describe("It converts a simple list", (expect) => {
 		expect.assertions(2);
 		const listNode = toPreact(
 			h('ul#todos', [
@@ -22,8 +22,8 @@ it("Convert HAST to petit-dom", () => {
 			])
 		);
 		console.dir(listNode);
-		expect(listNode.type).toBe('ul');
-		expect(listNode.content.length).toBe(2);
+		expect(listNode.nodeName).toBe('ul');
+		expect(listNode.children.length).toBe(2);
 	});
 
 });
