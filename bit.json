@@ -4,8 +4,8 @@
         "tester": "zipang.bit-boilerplate/tests/env@0.1.0"
     },
     "dependencies": {
-        "zipang.bit-boilerplate/tests/env": "0.1.0",
-        "zipang.bit-boilerplate/tests/describe": "0.1.0"
+        "zipang.bit-boilerplate/tests/env": "0.1.1",
+        "zipang.bit-boilerplate/tests/describe": "0.1.1"
     },
     "componentsDefaultDirectory": "src/{namespace}/{name}",
     "packageManager": "yarn",

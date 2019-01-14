@@ -9,10 +9,11 @@ const katex = require('rehype-katex');
 // const addIdsToTitles = require('rehype-slug');
 const handlers = require('./plugins/');
 // COMPILERS
-const toHtml = require('../hast-to-petitdom/').plugin;
+const toHtml = require('zipang.markdown-bundle.remark.hast-to-preact').plugin;
 
-// PETI DOM
-const { mount, patch } = require('petit-dom');
+// PREACT UNIVERSAL RENDERING
+const renderToDom = require('preact').render;
+const renderToString = require('preact-render-to-string');
 
 const DEFAULTS = {
 	// Markdown parser options
@@ -71,16 +72,14 @@ function markdownBundle(opts) {
 		// .use(addIdsToTitles);
 
 	function render(markdown, dest) {
-		const petitdom = processor.processSync(markdown).contents;
-		const node = mount(petitdom);
+		const node = processor.processSync(markdown).contents;
 
 		if (!dest) {
-			return node.outerHTML;
+			return renderToString(node);
 		} else if (dest.rendered) {
-			dest.rendered = patch(node, dest.rendered, dest);
+			renderToDom(node, dest, dest.rendered);
 		} else {
-			dest.innerHTML = node.outerHTML;
-			dest.rendered  = node;
+			dest.rendered = renderToDom(node, dest);
 		}
 	}
 
@@ -88,3 +87,7 @@ function markdownBundle(opts) {
 }
 
 module.exports = markdownBundle;
+
+if (window) {
+	window.markdownBundle = markdownBundle;
+}
