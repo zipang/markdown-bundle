@@ -37,7 +37,7 @@
         "origin": "IMPORTED",
         "originallySharedDir": "src/tests/env"
     },
-    "remark/hast-to-preact@0.1.0": {
+    "zipang.markdown-bundle/remark/hast-to-preact@0.1.0": {
         "files": [
             {
                 "relativePath": "src/remark/hast-to-preact/index.js",
@@ -54,7 +54,7 @@
         "trackDir": "src/remark/hast-to-preact",
         "origin": "AUTHORED"
     },
-    "remark/hast-to-petitdom@0.1.0": {
+    "zipang.markdown-bundle/remark/hast-to-petitdom@0.1.0": {
         "files": [
             {
                 "relativePath": "src/remark/hast-to-petitdom/index.js",
