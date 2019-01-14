@@ -70,7 +70,29 @@
         "origin": "IMPORTED",
         "originallySharedDir": "src/tests/env"
     },
-    "remark/hast-to-petitdom": {
+    "remark/hast-to-preact@0.1.0": {
+        "files": [
+            {
+                "relativePath": "src/remark/hast-to-preact/dump.js",
+                "test": false,
+                "name": "dump.js"
+            },
+            {
+                "relativePath": "src/remark/hast-to-preact/index.js",
+                "test": false,
+                "name": "index.js"
+            },
+            {
+                "relativePath": "src/remark/hast-to-preact/index.spec.js",
+                "test": true,
+                "name": "index.spec.js"
+            }
+        ],
+        "mainFile": "src/remark/hast-to-preact/index.js",
+        "trackDir": "src/remark/hast-to-preact",
+        "origin": "AUTHORED"
+    },
+    "remark/hast-to-petitdom@0.1.0": {
         "files": [
             {
                 "relativePath": "src/remark/hast-to-petitdom/index.js",
