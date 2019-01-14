@@ -37,66 +37,26 @@
         "origin": "IMPORTED",
         "originallySharedDir": "src/tests/env"
     },
-    "remark/bundle": {
+    "remark/hast-to-preact@0.1.0": {
         "files": [
             {
-                "relativePath": "src/remark/bundle/README.md",
+                "relativePath": "src/remark/hast-to-preact/dump.js",
                 "test": false,
-                "name": "README.md"
+                "name": "dump.js"
             },
             {
-                "relativePath": "src/remark/bundle/dist/index.html",
-                "test": false,
-                "name": "index.html"
-            },
-            {
-                "relativePath": "src/remark/bundle/dist/remark-bundle.js",
-                "test": false,
-                "name": "remark-bundle.js"
-            },
-            {
-                "relativePath": "src/remark/bundle/fuse.js",
-                "test": false,
-                "name": "fuse.js"
-            },
-            {
-                "relativePath": "src/remark/bundle/index.html",
-                "test": false,
-                "name": "index.html"
-            },
-            {
-                "relativePath": "src/remark/bundle/index.js",
+                "relativePath": "src/remark/hast-to-preact/index.js",
                 "test": false,
                 "name": "index.js"
             },
             {
-                "relativePath": "src/remark/bundle/index.spec.js",
+                "relativePath": "src/remark/hast-to-preact/index.spec.js",
                 "test": true,
                 "name": "index.spec.js"
-            },
-            {
-                "relativePath": "src/remark/bundle/plugins/handleImages.js",
-                "test": false,
-                "name": "handleImages.js"
-            },
-            {
-                "relativePath": "src/remark/bundle/plugins/index.js",
-                "test": false,
-                "name": "index.js"
-            },
-            {
-                "relativePath": "src/remark/bundle/rollup.config.js",
-                "test": false,
-                "name": "rollup.config.js"
-            },
-            {
-                "relativePath": "src/remark/bundle/tsconfig.json",
-                "test": false,
-                "name": "tsconfig.json"
             }
         ],
-        "mainFile": "src/remark/bundle/index.js",
-        "trackDir": "src/remark/bundle",
+        "mainFile": "src/remark/hast-to-preact/index.js",
+        "trackDir": "src/remark/hast-to-preact",
         "origin": "AUTHORED"
     },
     "remark/hast-to-petitdom@0.1.0": {
