@@ -1,6 +1,6 @@
 {
   "name": "hast-to-preact",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "hast dom to react virtual dom using preact",
   "main": "index.js",
   "author": "zipang (Christophe Desguez)",
